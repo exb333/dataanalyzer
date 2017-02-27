@@ -2,6 +2,8 @@ from PyQt4 import QtCore, QtGui
 import sys
 from StyleSet import stylish
 from WorkBook_Selector import WorkBookMain
+import Rename_Column
+from Rename_Column import Window
 import data_migration_GUI
 
 try:
@@ -29,6 +31,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
 		self.user = user
 		self.passwrd = passwrd
 		self.oracle_pass = oracle_pass
+		self.setObjectName("window")
 
 		self.resize(818, 620)
 		self.setWindowOpacity(0.95)
@@ -55,6 +58,11 @@ class Ui_MainWindow(QtGui.QMainWindow):
 		self.pushButton_2.setGeometry(QtCore.QRect(430, 330, 140, 31))
 		self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
 		self.pushButton_2.clicked.connect(self.workBookOpen)
+
+		self.pushButton_3 = QtGui.QPushButton(self.centralwidget)
+		self.pushButton_3.setGeometry(QtCore.QRect(330, 430, 140, 30))
+		self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+		self.pushButton_3.clicked.connect(self.renameColumn)
 
 		self.label_3 = QtGui.QLabel(self.centralwidget)
 		self.label_3.setGeometry(QtCore.QRect(380, 340, 21, 16))
@@ -106,6 +114,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
 		self.label_2.setText(_translate("MainWindow", "Which task would you like to perform ?", None))
 		self.pushButton.setText(_translate("MainWindow", "Trends to Oracle", None))
 		self.pushButton_2.setText(_translate("MainWindow", "Result Graph", None))
+		self.pushButton_3.setText(_translate("MainWindow", "Rename Columns", None))
 		self.label_3.setText(_translate("MainWindow", "OR", None))
 		self.menu_File.setTitle(_translate("MainWindow", "&File", None))
 		self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar", None))
@@ -113,7 +122,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
 		self.action_Graphs.setText(_translate("MainWindow", "&Graphs", None))
 		self.actionQuit.setText(_translate("MainWindow", "&Quit", None))
 
-	def workBookOpen(self, user=None, passwrd = None):
+	def workBookOpen(self):
 		user = self.user
 		passwrd = self.passwrd
 		self.close()
@@ -121,12 +130,19 @@ class Ui_MainWindow(QtGui.QMainWindow):
 		self.wind = WorkBookMain(user= user, passwrd = passwrd)
 		self.wind.show()
 
-	def OracleOpen(self, user = None, oracle_pass = None):
+	def OracleOpen(self):
 		user = self.user
 		oracle_pass = self.oracle_pass
 		self.close()
 	
 		self.sec = data_migration_GUI.Second(user=user, oracle_pass=oracle_pass)
+
+	def renameColumn(self):
+
+		self.close()
+		self.wind = Window(user = self.user, passwrd = self.passwrd )
+
+
 
 
 if __name__ == "__main__":

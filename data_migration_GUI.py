@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+from time import sleep
 from StyleSet import stylish
 import Welcome_Gui
 import SQL_Server_to_Oracle
@@ -102,14 +103,28 @@ class Second(QtGui.QMainWindow):
 		self.lineEdit_3 = QtGui.QLineEdit(self.formLayoutWidget)
 		self.lineEdit_3.setObjectName(_fromUtf8("lineEdit_3"))
 		self.formLayout.setWidget(4, QtGui.QFormLayout.FieldRole, self.lineEdit_3)
+		global user_oracle
+		global passwrd
+		global req_num
+		global test_num
+		global start_date
+		global end_date
 
-		
+
+		user_oracle = self.user
+		passwrd = self.oracle_pass
+		req_num = self.lineEdit.text()
+		test_num=self.textEdit.toPlainText()
+		start_date=self.lineEdit_2.text()
+		end_date=self.lineEdit_3.text()
+
+
 		self.buttonBox = QtGui.QDialogButtonBox(self.centralwidget)
 		self.buttonBox.setGeometry(QtCore.QRect(230, 430, 156, 23))
 		self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Save|QtGui.QDialogButtonBox.Close)
 		self.buttonBox.setCenterButtons(False)
 		self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-		self.buttonBox.accepted.connect(self.send_userInput_to_database)
+		self.buttonBox.accepted.connect(self.call_progress)
 		self.buttonBox.rejected.connect(self.reset)
 
 		self.buttonBox.button(QtGui.QDialogButtonBox.Close).setText("Back")
@@ -145,12 +160,6 @@ class Second(QtGui.QMainWindow):
 		self.lineEdit_2.clear()
 		self.lineEdit_3.clear()
 		self.textEdit.clear()
-
-	def send_userInput_to_database(self):
-		req_num = self.lineEdit.text()
-		SQL_Server_to_Oracle.check_row_count(user_oracle=self.user, passwrd=self.oracle_pass, req_num=req_num, test_num=self.textEdit.toPlainText(), start_date=self.lineEdit_2.text(), end_date=self.lineEdit_3.text())
-
-
 
 
 
@@ -189,7 +198,52 @@ class Second(QtGui.QMainWindow):
 		if event.key() == QtCore.Qt.Key_Tab:
 			self.textEdit.setTabChangesFocus(True)
 
+	def call_progress(self):
+		self.window = Window()
+		self.window.resize(250, 50)
+		self.window.show()
 
+
+
+class Window(QtGui.QWidget):
+
+	def __init__(self, parent=None):
+		super(Window, self).__init__(parent)
+
+		layout = QtGui.QVBoxLayout(self)
+
+		self.progressBar = QtGui.QProgressBar(self)
+		self.progressBar.setRange(0,1)
+		layout.addWidget(self.progressBar)
+
+
+		self.progressBar.setRange(0,0)
+
+		self.myLongTask = TaskThread()
+		self.myLongTask.start()
+		self.myLongTask.taskFinished.connect(self.onFinished)
+
+	def onStart(self):
+		self.progressBar.setRange(0,0)
+		self.myLongTask.start()
+
+	def onFinished(self):
+		# Stop the pulsation
+		self.progressBar.setRange(0,1)
+		self.progressBar.setValue(1)
+		self.close()
+
+
+class TaskThread(QtCore.QThread):
+	global lst
+	lst = [i for i in range(100000)]
+	taskFinished = QtCore.pyqtSignal()
+	def run(self):
+		sleep(3)
+		for i in range(len(lst)):
+			print i
+		sleep(3)
+		self.taskFinished.emit()
 
 if __name__ == "__main__":
 
