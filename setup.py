@@ -27,11 +27,20 @@ data_files = [
     (r'mpl-data', glob.glob(r'C:\Users\Bordee\Desktop\venv\Lib\site-packages\matplotlib\mpl-data\*.*')),
                     # Because matplotlibrc does not have an extension, glob does not find it (at least I think that's why)
                     # So add it manually here:
+<<<<<<< HEAD
                   (r'mpl-data', [r'C:\Users\Bordee\Desktop\venv\Lib\site-packages\matplotlib\mpl-data\matplotlibrc']),
                   (r'mpl-data\images',glob.glob(r'C:\Users\Bordee\Desktop\venv\Lib\site-packages\matplotlib\mpl-data\images\*.*')),
                   (r'mpl-data\stylelib',glob.glob(r'C:\Users\Bordee\Desktop\venv\Lib\site-packages\matplotlib\mpl-data\stylelib\*.*')),
                   (r'mpl-data\fonts',glob.glob(r'C:\Users\Bordee\Desktop\venv\Lib\site-packages\matplotlib\mpl-data\fonts\*.*')),
                   (r'resources',glob.glob(r'C:\Users\Bordee\Desktop\dataanalyzer\resources\*.*')),
+=======
+                  (r'mpl-data', [r'C:\Environment\Project\Lib\site-packages\matplotlib\mpl-data\matplotlibrc']),
+                  (r'mpl-data\images',glob.glob(r'C:\Environment\Project\Lib\site-packages\matplotlib\mpl-data\images\*.*')),
+                  (r'mpl-data\stylelib',glob.glob(r'C:\Environment\Project\Lib\site-packages\matplotlib\mpl-data\stylelib\*.*')),
+                  (r'mpl-data\fonts',glob.glob(r'C:\Environment\Project\Lib\site-packages\matplotlib\mpl-data\fonts\*.*')),
+                  (r'resources',glob.glob(r'C:\LaBCoV\resources\*.*')),
+				  (r'',glob.glob(r'C:\LaBCoV\default_config.cfg')),
+>>>>>>> da8870a7392830937b922194008b7ce023f60c97
 			  # oracle files
 			  (r'Oracle',glob.glob(r'C:\Users\Bordee\Desktop\venv\Lib\site-packages\Oracle\*.*')),
             (r'Oracle\instantclient_11_2',glob.glob(r'C:\Users\Bordee\Desktop\venv\Lib\site-packages\Oracle\instantclient_11_2\*.*')),

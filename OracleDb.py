@@ -2,9 +2,13 @@ import cx_Oracle
 from PyQt4 import QtGui
 import pandas as pd
 import ConfigParser
+<<<<<<< HEAD
 
 from config import dsn_details
 
+=======
+from config import dsn_details
+>>>>>>> da8870a7392830937b922194008b7ce023f60c97
 
 user = None
 passwrd = None
