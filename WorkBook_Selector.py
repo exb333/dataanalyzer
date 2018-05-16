@@ -128,7 +128,7 @@ class WorkBookMain(QtGui.QMainWindow):
 		id = self.lineEdit.text()
 		self.font_radio = QtGui.QFont()
 		palette = QtGui.QPalette()
-		self.font_radio.setFamily("Helvetica")
+		self.font_radio.setFamily("Arial")
 		self.font_radio.setPointSize(11)
 		self.font_radio.setWeight(40)
 
@@ -197,7 +197,7 @@ class WorkBookMain(QtGui.QMainWindow):
 	def go_analysis(self):
 
 		try:
-			if self.button_group.checkedButton() == None:
+			if self.button_group.checkedButton() is None:
 				raise IOError('Please select a sheet!')
 
 			name = self.button_group.checkedButton().text()
